@@ -5,7 +5,7 @@ Code Network Discord Bot version 2.0 member developed.
 
 
 ### Contributors
-1. @Haard-Shah
-2. @Steve-Hun
-3. @Kriswill72
-4. @draykophoenix
+@Haard-Shah
+@Steve-Hun
+@Kriswill72
+@draykophoenix

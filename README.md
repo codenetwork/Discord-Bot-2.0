@@ -9,6 +9,7 @@ Code Network Discord Bot version 2.0 member developed.
 @Steve-Hun
 @Kriswill72
 @draykophoenix
+@Takao-Mizuno
 
 ##Feature Requests
 *add your name next to features you are working on!*

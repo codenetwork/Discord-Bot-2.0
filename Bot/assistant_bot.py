@@ -24,7 +24,9 @@ zen_url = "https://zenquotes.io/api/random"
 
 def get_quote():
     """
-    This function gets a random quote from the API
+    This function gets a random quote from the API(zenquotes)
+    API references is below.
+    (https://zenquotes.io/)
     return value is {'q': ~~~, 'a': ~~~, 'h': ~~~}
     """
     headers = {'user-agent': 'vscode-restclient'}
@@ -55,11 +57,13 @@ async def on_message(message):  # when the bot recieves a message
     # if the message starts with !inspire
     if message.content.startswith('!inspire'):
         author_name = message.author.name.split()[0]  # get the author's name
-        quote = get_quote()
+        json_data = get_quote()
+        quote = json_data['q']
         # await message.channel.send(quote)
         await message.reply(author_name + ", " + quote)
 
-    # if the message contains negative words
+    # if the message contains negative words("sad", "depressed", "unhappy", "angry", "miserable", "depressing")
+    # return a sentence that can motivate the user
     if any(word in message.content for word in sad_words):
         json_data = get_quote()
         quote = json_data['q']

@@ -1,14 +1,21 @@
+import asyncio
+from datetime import datetime
 import discord
+from discord.ext import tasks
 import os
 import requests
 import json
 import random
 from dotenv import load_dotenv
 
+# load .env file from local
+load_dotenv()
 # instance of the client
 Intents = discord.Intents.default()
 Intents.message_content = True
 client = discord.Client(intents=Intents)
+
+meme_channel_id = int(os.getenv('MEME_CHANNEL_ID'))
 
 # const
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "depressing"]
@@ -20,6 +27,9 @@ starter_encouragements = [
     "You are a great person!"
 ]
 zen_url = "https://zenquotes.io/api/random"
+meme_url = "https://meme-api.herokuapp.com/gimme/1"
+
+# method part
 
 
 def get_quote():
@@ -33,6 +43,33 @@ def get_quote():
     if not json_data[0]:
         return "failed fetching data... Anyway, you can do it!!!"
     return json_data[0]
+
+
+def get_meme():
+    """
+    This function gets a random meme from the API
+    get a jpg or png url
+    please refer to this below url
+    https://github.com/D3vd/Meme_Api
+    """
+    response = requests.request("GET", meme_url)
+    json_data_for_meme = json.loads(response.text)
+    url = json_data_for_meme['memes'][0]['url']
+    return url
+
+
+@tasks.loop(minutes=1.0)
+async def show_meme_daily():
+    """
+    This function sends a meme at 8:00 am everyday.
+    This task is called every 1 minutes and if the time is 8:00, it will send meme.
+    """
+    now = datetime.now().strftime('%H:%M')
+    if (now == '08:00'):
+        channel = client.get_channel(meme_channel_id)
+        await channel.send(f"Good morning! This is today's meme")
+        await channel.send(get_meme())
+    return
 
 
 @client.event
@@ -68,6 +105,18 @@ async def on_message(message):  # when the bot recieves a message
         await message.channel.send(quote + '- by ' + author)
         await message.channel.send(random.choice(starter_encouragements))
 
-load_dotenv()
-Token = os.getenv('AUTH_TOKEN')
-client.run(Token)  # run the bot with the token
+    # identify that as meme channel
+    if message.channel.id == meme_channel_id:
+        # send a meme to meme channel
+        await client.get_channel(meme_channel_id).send(get_meme())
+
+
+async def main():
+    async with client:
+        show_meme_daily.start()
+        Token = os.getenv('AUTH_TOKEN')
+        await client.start(Token)  # run the bot with the token
+
+# Takao implemented this line by using asyncio library insted of client.start(token)
+# because show_meme_daily method should be called every 1 minute.
+asyncio.run(main())

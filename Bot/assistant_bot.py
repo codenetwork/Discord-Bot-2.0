@@ -106,7 +106,7 @@ async def on_message(message):  # when the bot recieves a message
         await message.channel.send(random.choice(starter_encouragements))
 
     # identify that as meme channel
-    if message.channel.id == meme_channel_id:
+    if message.channel.id == meme_channel_id and message.content == "!meme":
         # send a meme to meme channel
         await client.get_channel(meme_channel_id).send(get_meme())
 

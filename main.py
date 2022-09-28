@@ -22,6 +22,5 @@ async def main():
 BOT.add_cog(BasicsCog(BOT))
 BOT.add_cog(InspireCog(BOT))
 
-
 if __name__ == "__main__":
     asyncio.run(main)

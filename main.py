@@ -3,6 +3,9 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import asyncio
 
+from cogs.basics_cog import BasicsCog
+from cogs.inspire_cog import InspireCog
+
 BOT = commands.Bot()
 
 @BOT.event
@@ -15,6 +18,10 @@ async def main():
         load_dotenv()
         token = os.getenv("AUTH_TOKEN")
         await BOT.start(token)  # run the bot with the token
+
+BOT.add_cog(BasicsCog(BOT))
+BOT.add_cog(InspireCog(BOT))
+
 
 if __name__ == "__main__":
     asyncio.run(main)

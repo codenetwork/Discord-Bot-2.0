@@ -4,7 +4,4 @@ Functionality of the Code Network bot is organised into cogs, discord.py's way o
 
 ## Naming convention
 
-The file name and cog name should be suffixed with "cog", so for example if my cog was concerned with authentication, the file name and cog name should be
-
-- `auth_cog.py`
-- `AuthCog`
+The file name and cog name should be suffixed with "cog", so for example if my cog was concerned with authentication, the file would be called `auth_cog.py` and the class should be named `AuthCog`.

@@ -6,7 +6,7 @@ import asyncio
 from cogs.basics_cog import BasicsCog
 from cogs.inspire_cog import InspireCog
 
-BOT = commands.Bot()
+BOT = commands.Bot(command_prefix='$')
 
 @BOT.event
 async def on_ready():  # when the bot is ready to use

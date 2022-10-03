@@ -13,14 +13,15 @@ async def on_ready():  # when the bot is ready to use
     print(f"We have logged in as {BOT.user}")
     # "Hey there! I'm your personal assistant. I can help you with anything you need. Just ask me!"
 
+
+BOT.add_cog(BasicsCog(BOT))
+BOT.add_cog(InspireCog(BOT))
+
 async def main():
     async with BOT:
         load_dotenv()
         token = os.getenv("AUTH_TOKEN")
         await BOT.start(token)  # run the bot with the token
-
-BOT.add_cog(BasicsCog(BOT))
-BOT.add_cog(InspireCog(BOT))
 
 if __name__ == "__main__":
     asyncio.run(main)

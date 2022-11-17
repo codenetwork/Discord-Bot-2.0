@@ -1,0 +1,5 @@
+.env
+Lavalink.jar
+application.yml
+env/
+main.py

@@ -1,6 +1,8 @@
 # Create a music bot that plays Lofi music whenever a user joins
 # a voice channel
 
+## This module requires Java 13 and Lavalink v3.4 to work, additional Python packages can be found in requirements.txt
+
 # Import necessary libraries
 from discord.ext import commands
 import wavelink
